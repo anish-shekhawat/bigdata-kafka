@@ -35,6 +35,28 @@ public class Consumer {
         		consumer.subscribe(Arrays.asList(topic));
         		int timeouts = 0;
         		
+				while (true) {
+					ConsumerRecords<String, String> records = consumer.poll(200);
+					if (records.count() == 0) {
+						timeouts++;
+					} 
+					else {
+						System.out.printf("Got %d records after %d timeouts\n", records.count(), timeouts);
+						timeouts = 0;
+					}
+				
+					for (ConsumerRecord<String, String> record : records) {
+						// pull out the vibration delta from record
+						String[] tokens = record.value().split(",");
+                        
+						// determine if it's greater than the threshold
+                        if (Double.parseDouble(tokens[2]) > threshold)
+						{
+							// if it is greater, than write that record to the file
+							Files.append(record.value() + "\n", output, Charsets.UTF_8);
+						} 
+					}
+        		}
 				
     		}
 
