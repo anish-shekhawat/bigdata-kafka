@@ -32,6 +32,30 @@ public class Producer {
 			Properties properties = new Properties();
 			properties.load(props);
 			producer = new KafkaProducer<>(properties);
+			
+			while (true) {
+
+				// get current time stamp
+				String timestamp = String.valueOf(new Date().getTime());
+
+				// get vibration delta 
+				String delta = String.valueOf(ND.sample()); 
+
+
+				// create message 
+				String messageText = String.valueOf(pumpId) + "," + timestamp + "," + delta;
+				
+				ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topic, messageText);
+
+				// publish message to topic 
+				producer.send(rec);
+
+				// flush producer
+				producer.flush();
+
+				// sleep for 1 second
+				Thread.sleep(1000);
+			}
 		}
 		catch (Exception e) {
 			System.err.println(e.toString());
