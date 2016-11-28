@@ -20,7 +20,7 @@ public class Consumer {
 		}
         
 		// parse the command-line
-        String topic = args[0];
+		String topic = args[0];
 		Double threshold = Double.parseDouble(args[1]);
 		String file = args[2];
 
@@ -51,8 +51,8 @@ public class Consumer {
 					String[] tokens = record.value().split(",");
 					
 					// determine if it's greater than the threshold
-					if (Double.parseDouble(tokens[2]) > threshold)
-					{
+					if (Double.parseDouble(tokens[2]) > threshold) {
+						
 						// if it is greater, than write that record to the file
 						Files.append(record.value() + "\n", output, Charsets.UTF_8);
 					} 
