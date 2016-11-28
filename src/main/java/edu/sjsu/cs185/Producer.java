@@ -63,4 +63,5 @@ public class Producer {
 		finally {
 			producer.close();
 		}
+	}
 }
