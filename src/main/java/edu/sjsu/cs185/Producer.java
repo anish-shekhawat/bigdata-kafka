@@ -22,4 +22,21 @@ public class Producer {
 		// parse the command line 
 		String topic = args[0];
 		int pumpId = Integer.parseInt(args[1]);
+		
+		// setup the normal distribution
+		NormalDistribution ND = new NormalDistribution(0.0, 0.2);
+		
+		// setup the producer
+		KafkaProducer<String, String> producer=null;
+		try (InputStream props = Resources.getResource("producer.props").openStream()) {
+			Properties properties = new Properties();
+			properties.load(props);
+			producer = new KafkaProducer<>(properties);
+		}
+		catch (Exception e) {
+			System.err.println(e.toString());
+		}
+		finally {
+			producer.close();
+		}
 }
