@@ -24,12 +24,12 @@ Download & configure MapR Sandbox
 
 Install maven
 
-1. Login to Sandbox as root user
+* Login to Sandbox as root user
 ```bash
 ssh -p 2222 root@localhost
 ``` 
 
-2. Download and install maven
+* Download and install maven
 ```bash
 wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
 yum install apache-maven
@@ -37,47 +37,47 @@ yum install apache-maven
 
 ## Usage
 
-1. Login to Sandbox as user01 user.
+* Login to Sandbox as user01 user.
 ```bash
 ssh -p 2222 user01@localhost
 ```
-2. Download and extract Apache Kafka
+* Download and extract Apache Kafka
 ```bash
 wget http://apache.claz.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz
 tar -xzf kafka_2.11-0.10.0.0.tgz
 ```
-3. Start the zookeeper service
+* Start the zookeeper service
 ```bash
 cd kafka_2.11-0.10.0.0
 bin/zookeeper-server-start.sh config/zookeeper.properties > /tmp/zk.out 2>&1 &
 ```
-4. Start the Kafka Sevice
+* Start the Kafka Sevice
 ```bash
 bin/kafka-server-start.sh config/server.properties > /tmp/kafka.out 2>&1 &
 ```
-5. Create a Topic
+* Create a Topic
 ```bash
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic <topic-name>
 ```
-6. Build the project
+* Build the project
 ```bash
 cd ~/bigdata-kafka
 mvn clean install
 ```
-7. Run the Producer
+* Run the Producer
 ```bash
 java -cp target/lab2-1.0-SNAPSHOT-jar-with-dependencies.jar edu.sjsu.cs185.Producer <topic-name> <pump-id>
 ```
-8. Open a second terminal window to the Sandbox
+* Open a second terminal window to the Sandbox
 ```bash
 ssh -p 2222 user01@localhost
 ```
-9. Start a Consumer
+* Start a Consumer
 ```bash
 cd ~/bigdata-kakfka
 java -cp target/lab2-1.0-SNAPSHOT-jar-with-dependencies.jar \ edu.sjsu.cs185.Consumer <topic-name> <threshold-value> <file-name>
 ```
-10. Open a third terminal window and get running tail of output file in third window.
+* Open a third terminal window and get running tail of output file in third window.
 ```bash
 tail -f <file-name>
 ```
