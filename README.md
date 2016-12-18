@@ -43,12 +43,12 @@ ssh -p 2222 user01@localhost
 ```
 2. Download and extract Apache Kafka
 ```bash
-wget http://apache.claz.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz`
+wget http://apache.claz.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz
 tar -xzf kafka_2.11-0.10.0.0.tgz
 ```
 3. Start the zookeeper service
 ```bash
-cd kafka_2.11-0.10.0.0`
+cd kafka_2.11-0.10.0.0
 bin/zookeeper-server-start.sh config/zookeeper.properties > /tmp/zk.out 2>&1 &
 ```
 4. Start the Kafka Sevice
